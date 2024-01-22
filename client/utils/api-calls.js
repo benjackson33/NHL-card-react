@@ -9,3 +9,7 @@ axios.defaults.baseURL = "http://localhost:3001/";
 export const getTeams = () => {
   return axios.get(`teams`);
 };
+
+export const getRoster = (triCode) => {
+  return axios.get(`${triCode}/roster`);
+};

@@ -21,4 +21,18 @@ app.get("/teams", async (req, res) => {
   }
 });
 
+app.get("/:triCode/roster", async (req, res) => {
+  //   res.send("hello");
+  const apiUrl = "https://api-web.nhle.com/v1/roster/TOR/current";
+
+  try {
+    const response = await axios.get(apiUrl);
+    const teamData = response.data;
+    // console.log(teamData);
+    res.json(teamData);
+  } catch (err) {
+    res.send(err);
+  }
+});
+
 app.listen(port, () => console.log(`Listening on port ${port}!`));

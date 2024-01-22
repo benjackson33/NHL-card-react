@@ -30,9 +30,9 @@ const excludedTeams = [
   "NHL",
 ];
 
-const App = () => {
+const Teams = ({ onTriCodeSelect }) => {
   const [teams, setTeams] = useState([]);
-  //   console.log(teams);
+  // console.log(teams);
 
   useEffect(() => {
     const fetchTeams = async () => {
@@ -52,19 +52,31 @@ const App = () => {
   );
   // console.log(filteredTeams);
 
+  const handleTriCodeClick = (triCode) => {
+    // Pass the selected triCode back to the parent component
+    onTriCodeSelect(triCode);
+  };
+
   return (
     <>
-      <div class="flex justify-center items-center">
+      <div className="flex justify-center items-center m-8">
         <img
-          className="w-40 "
+          className="w-48 "
           src={`https://assets.nhle.com/logos/nhl/svg/NHL_light.svg`}
           alt=""
         />
       </div>
-      <div className="grid grid-cols-4 gap-2 justify-items-center">
+      <div
+        key={teams.id}
+        className="grid grid-cols-4 gap-2 justify-items-center"
+      >
         {filteredTeams.map((team) =>
           team.triCode !== "PHX" ? (
-            <a href="#">
+            <a
+              href="#"
+              key={team.id}
+              onClick={() => handleTriCodeClick(team.triCode)}
+            >
               <img
                 key={team.id}
                 className="w-36 mb-4"
@@ -79,4 +91,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default Teams;
