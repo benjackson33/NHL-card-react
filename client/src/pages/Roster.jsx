@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { getRoster } from "../../utils/api-calls";
+import PlayerCard from "../components/PlayerCard";
 
 const Roster = () => {
   const location = useLocation();
@@ -24,14 +25,27 @@ const Roster = () => {
 
   return (
     <div>
-      <h1>Roster Page for {triCode}</h1>
-      {/* Render roster details using the 'teams' state */}
-      {/* For example: */}
-      {/* <ul>
-        {teams.map((player) => (
-          <li key={player.id}>{player.name}</li>
-        ))}
-      </ul> */}
+      <h1 className="font-extrabold text-xl m-5">Forwards</h1>
+      <div>
+        {players &&
+          players.forwards.map((player) => (
+            <PlayerCard key={player.id} player={player} />
+          ))}
+      </div>
+      <h1 className="font-extrabold text-xl m-10">Defense</h1>
+      <div>
+        {players &&
+          players.defensemen.map((player) => (
+            <PlayerCard key={player.id} player={player} />
+          ))}
+      </div>
+      <h1 className="font-extrabold text-xl m-10">Goalies</h1>
+      <div>
+        {players &&
+          players.goalies.map((player) => (
+            <PlayerCard key={player.id} player={player} />
+          ))}
+      </div>
     </div>
   );
 };
