@@ -7,11 +7,12 @@ const Roster = () => {
   const location = useLocation();
   const triCode = location.pathname.split("/")[1];
   const [players, setPlayers] = useState(null);
+  const [metric, setMetric] = useState(true);
 
   useEffect(() => {
     const fetchTeams = async () => {
       try {
-        const res = await getRoster(triCode); // Change the URL to match your server's URL
+        const res = await getRoster(triCode);
         setPlayers(res.data);
       } catch (err) {
         console.log(err);
@@ -19,33 +20,33 @@ const Roster = () => {
     };
 
     fetchTeams();
-  }, [triCode]); // Add triCode as a dependency to rerun the effect when triCode changes
+  }, [triCode]);
 
-  console.log(players);
+  const renderPlayerCategory = (category, title) => (
+    <div>
+      {players && players[category] && (
+        <>
+          <h1 className="font-extrabold text-xl m-5">{title}</h1>
+          {players[category].map((player) => (
+            <PlayerCard key={player.id} player={player} metric={metric} />
+          ))}
+        </>
+      )}
+    </div>
+  );
 
   return (
     <div>
-      <h1 className="font-extrabold text-xl m-5">Forwards</h1>
       <div>
-        {players &&
-          players.forwards.map((player) => (
-            <PlayerCard key={player.id} player={player} />
-          ))}
+        <button
+          onClick={() => (metric === true ? setMetric(false) : setMetric(true))}
+        >
+          Unit Convert
+        </button>
       </div>
-      <h1 className="font-extrabold text-xl m-10">Defense</h1>
-      <div>
-        {players &&
-          players.defensemen.map((player) => (
-            <PlayerCard key={player.id} player={player} />
-          ))}
-      </div>
-      <h1 className="font-extrabold text-xl m-10">Goalies</h1>
-      <div>
-        {players &&
-          players.goalies.map((player) => (
-            <PlayerCard key={player.id} player={player} />
-          ))}
-      </div>
+      {renderPlayerCategory("forwards", "Forwards")}
+      {renderPlayerCategory("defensemen", "Defense")}
+      {renderPlayerCategory("goalies", "Goalies")}
     </div>
   );
 };
