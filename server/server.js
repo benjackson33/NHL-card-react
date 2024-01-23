@@ -23,7 +23,8 @@ app.get("/teams", async (req, res) => {
 
 app.get("/:triCode/roster", async (req, res) => {
   //   res.send("hello");
-  const apiUrl = "https://api-web.nhle.com/v1/roster/TOR/current";
+
+  const apiUrl = `https://api-web.nhle.com/v1/roster/${req.params.triCode}/current`;
 
   try {
     const response = await axios.get(apiUrl);

@@ -32,7 +32,6 @@ const excludedTeams = [
 
 const Teams = ({ onTriCodeSelect }) => {
   const [teams, setTeams] = useState([]);
-  // console.log(teams);
 
   useEffect(() => {
     const fetchTeams = async () => {
@@ -50,7 +49,6 @@ const Teams = ({ onTriCodeSelect }) => {
   const filteredTeams = teams.filter(
     (team) => !excludedTeams.includes(team.fullName)
   );
-  // console.log(filteredTeams);
 
   const handleTriCodeClick = (triCode) => {
     // Pass the selected triCode back to the parent component
@@ -61,27 +59,23 @@ const Teams = ({ onTriCodeSelect }) => {
     <>
       <div className="flex justify-center items-center m-8">
         <img
-          className="w-48 "
+          className="w-48"
           src={`https://assets.nhle.com/logos/nhl/svg/NHL_light.svg`}
           alt=""
         />
       </div>
-      <div
-        key={teams.id}
-        className="grid grid-cols-4 gap-2 justify-items-center"
-      >
+      <div className="grid grid-cols-4 gap-2 justify-items-center">
         {filteredTeams.map((team) =>
           team.triCode !== "PHX" ? (
             <a
-              href="#"
-              key={team.id}
+              href={`${team.triCode}/roster`}
+              key={team.id} // Use a unique key for each 'a' element
               onClick={() => handleTriCodeClick(team.triCode)}
             >
               <img
-                key={team.id}
                 className="w-36 mb-4"
                 src={`https://assets.nhle.com/logos/nhl/svg/${team.triCode}_light.svg`}
-                alt=""
+                alt={`Logo of ${team.fullName}`}
               />
             </a>
           ) : null

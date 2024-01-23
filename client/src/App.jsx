@@ -24,7 +24,10 @@ function App() {
             element={<Teams onTriCodeSelect={handleTriCodeSelection} />}
           />
           {/* Use :triCode to capture the triCode parameter from the URL */}
-          <Route path="/:triCode/roster" element={<Roster />} />
+          <Route
+            path="/:triCode/roster"
+            element={<Roster selectedTriCode={selectedTriCode} />}
+          />
         </Routes>
       </>
     </Router>
