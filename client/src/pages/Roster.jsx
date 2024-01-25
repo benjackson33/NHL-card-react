@@ -23,15 +23,19 @@ const Roster = () => {
   }, [triCode]);
 
   const renderPlayerCategory = (category, title) => (
-    <div>
-      {players && players[category] && (
-        <>
-          <h1 className="font-extrabold text-xl m-5">{title}</h1>
-          {players[category].map((player) => (
-            <PlayerCard key={player.id} player={player} metric={metric} />
-          ))}
-        </>
-      )}
+    <div className="flex justify-center items-center m-8">
+      <div>
+        {players && players[category] && (
+          <>
+            <h1 className="font-extrabold text-xl m-5">{title}</h1>
+            <div className="grid grid-cols-3 gap-4">
+              {players[category].map((player) => (
+                <PlayerCard key={player.id} player={player} metric={metric} />
+              ))}
+            </div>
+          </>
+        )}
+      </div>
     </div>
   );
 
@@ -39,7 +43,8 @@ const Roster = () => {
     <div>
       <div>
         <button
-          onClick={() => (metric === true ? setMetric(false) : setMetric(true))}
+          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+          onClick={() => setMetric(!metric)}
         >
           Unit Convert
         </button>

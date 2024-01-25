@@ -12,7 +12,7 @@ const PlayerCard = ({ player, metric }) => {
 
   return (
     <>
-      <div className="relative">
+      <div className=" border-2 rounded-md border-slate-700 relative p-5">
         <h1>
           {player.firstName.default} {player.lastName.default}
         </h1>

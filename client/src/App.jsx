@@ -3,8 +3,9 @@ import { useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Teams from "./pages/Teams";
 import Home from "./pages/Home";
-import Roster from "./pages/Roster"; // Import the Roster component
+import Roster from "./pages/Roster";
 import NavBar from "./components/NavBar";
+import LoadingSpinner from "./components/LoadingSpinner";
 
 function App() {
   const [selectedTriCode, setSelectedTriCode] = useState(null);
@@ -15,6 +16,7 @@ function App() {
   // console.log(selectedTriCode);
   return (
     <Router>
+      {/* <LoadingSpinner /> */}
       <>
         <NavBar />
         <Routes>
