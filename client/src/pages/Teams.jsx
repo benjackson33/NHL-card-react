@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { getTeams } from "../../utils/api-calls";
 import LoadingSpinner from "../components/LoadingSpinner";
 
-//API return teams no currently in NHL
+//API return teams not currently in NHL
 
 const excludedTeams = [
   "Atlanta Thrashers",
@@ -37,6 +37,8 @@ const Teams = ({ onTriCodeSelect }) => {
   const [teams, setTeams] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  //* Calling team data - axios call in utils/api-call.js
+
   useEffect(() => {
     const fetchTeams = async () => {
       try {
@@ -51,6 +53,8 @@ const Teams = ({ onTriCodeSelect }) => {
 
     fetchTeams();
   }, []);
+
+  //* Filtering the teams out that are not currently in NHL using array above
 
   const filteredTeams = teams.filter(
     (team) => !excludedTeams.includes(team.fullName)

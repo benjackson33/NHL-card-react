@@ -5,7 +5,7 @@ import Teams from "./pages/Teams";
 import Home from "./pages/Home";
 import Roster from "./pages/Roster";
 import NavBar from "./components/NavBar";
-import LoadingSpinner from "./components/LoadingSpinner";
+import Login from "./pages/Login";
 
 function App() {
   const [selectedTriCode, setSelectedTriCode] = useState(null);
@@ -16,7 +16,6 @@ function App() {
   // console.log(selectedTriCode);
   return (
     <Router>
-      {/* <LoadingSpinner /> */}
       <>
         <NavBar />
         <Routes>
@@ -25,7 +24,8 @@ function App() {
             path="/teams"
             element={<Teams onTriCodeSelect={handleTriCodeSelection} />}
           />
-          {/* Use :triCode to capture the triCode parameter from the URL */}
+          <Route path="/login" element={<Login />} />
+
           <Route
             path="/:triCode/roster"
             element={<Roster selectedTriCode={selectedTriCode} />}
