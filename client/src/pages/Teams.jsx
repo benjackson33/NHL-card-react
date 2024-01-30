@@ -1,40 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { getTeams } from "../../utils/api-calls";
 import LoadingSpinner from "../components/LoadingSpinner";
+import { excludedTeams } from "../../utils/excluded-teams";
 
-//API return teams not currently in NHL
-
-const excludedTeams = [
-  "Atlanta Thrashers",
-  "Hartford Whalers",
-  "Minnesota North Stars",
-  "Quebec Nordiques",
-  "Winnipeg Jets (1979)",
-  "Colorado Rockies",
-  "Ottawa Senators (1917)",
-  "Hamilton Tigers",
-  "Pittsburgh Pirates",
-  "Philadelphia Quakers",
-  "Detroit Cougars",
-  "Montreal Wanderers",
-  "Quebec Bulldogs",
-  "Montreal Maroons",
-  "New York Americans",
-  "St. Louis Eagles",
-  "Oakland Seals",
-  "Atlanta Flames",
-  "Kansas City Scouts",
-  "Cleveland Barons",
-  "Detroit Falcons",
-  "Brooklyn Americans",
-  "California Golden Seals",
-  "Toronto Arenas",
-  "Toronto St. Patricks",
-  "NHL",
-];
-
-const Teams = ({ onTriCodeSelect }) => {
-  const [teams, setTeams] = useState([]);
+const Teams = ({ teams, setTeams, onTriCodeSelect }) => {
   const [loading, setLoading] = useState(true);
 
   //* Calling team data - axios call in utils/api-call.js
@@ -52,13 +21,14 @@ const Teams = ({ onTriCodeSelect }) => {
     };
 
     fetchTeams();
-  }, []);
+  }, [setTeams]);
 
   //* Filtering the teams out that are not currently in NHL using array above
-
   const filteredTeams = teams.filter(
     (team) => !excludedTeams.includes(team.fullName)
   );
+
+  // console.log(filteredTeams);
 
   const handleTriCodeClick = (triCode) => {
     onTriCodeSelect(triCode);

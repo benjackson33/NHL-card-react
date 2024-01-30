@@ -6,14 +6,16 @@ import Home from "./pages/Home";
 import Roster from "./pages/Roster";
 import NavBar from "./components/NavBar";
 import Login from "./pages/Login";
+import SignUp from "./pages/SignUp";
 
 function App() {
   const [selectedTriCode, setSelectedTriCode] = useState(null);
+  const [teams, setTeams] = useState([]);
   const handleTriCodeSelection = (triCode) => {
     setSelectedTriCode(triCode);
   };
 
-  // console.log(selectedTriCode);
+  // console.log(teams);
   return (
     <Router>
       <>
@@ -22,9 +24,16 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route
             path="/teams"
-            element={<Teams onTriCodeSelect={handleTriCodeSelection} />}
+            element={
+              <Teams
+                teams={teams}
+                setTeams={setTeams}
+                onTriCodeSelect={handleTriCodeSelection}
+              />
+            }
           />
           <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<SignUp teams={teams} />} />
 
           <Route
             path="/:triCode/roster"

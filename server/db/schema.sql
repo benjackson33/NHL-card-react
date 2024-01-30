@@ -1,10 +1,12 @@
-CREATE DATABASE nhlcards
+CREATE DATABASE nhlcards;
 
-create TABLE users (
+CREATE TABLE users (
     id SERIAL PRIMARY KEY,
-    username TEXT UNIQUE NOT NULL,
+    first_name TEXT  UNIQUE NOT NULL
+    last_name TEXT  UNIQUE NOT NULL
     email TEXT UNIQUE NOT NULL,
     password_hash TEXT NOT NULL,
+    favorite_teams TEXT NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 

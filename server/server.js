@@ -1,11 +1,13 @@
 const express = require("express");
 const cors = require("cors");
 const axios = require("axios");
-const port = 3001;
+const port = process.env.PORT || 3001;
 const app = express();
 
 app.use(express.json());
 app.use(cors());
+
+require("dotenv").config();
 
 app.get("/teams", async (req, res) => {
   //   res.send("hello");
