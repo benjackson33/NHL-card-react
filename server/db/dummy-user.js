@@ -1,7 +1,5 @@
 require("dotenv").config();
 
-console.log("DATABASE_URL:", process.env.DATABASE_URL); // Add this line for debugging
-
 const pg = require("pg");
 const db = new pg.Pool({
   connectionString: process.env.DATABASE_URL,

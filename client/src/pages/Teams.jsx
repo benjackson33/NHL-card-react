@@ -1,39 +1,17 @@
-import React, { useEffect, useState } from "react";
-import { getTeams } from "../../utils/api-calls";
 import LoadingSpinner from "../components/LoadingSpinner";
+
 import { excludedTeams } from "../../utils/excluded-teams";
 
-const Teams = ({ teams, setTeams, onTriCodeSelect }) => {
-  const [loading, setLoading] = useState(true);
+import { useState, useEffect } from "react";
 
-  //* Calling team data - axios call in utils/api-call.js
-
-  useEffect(() => {
-    const fetchTeams = async () => {
-      try {
-        const res = await getTeams();
-        setTeams(res.data.data);
-        setLoading(false); // Set loading to false when data is fetched
-      } catch (err) {
-        console.log(err);
-        setLoading(false); // Set loading to false in case of an error
-      }
-    };
-
-    fetchTeams();
-  }, [setTeams]);
+const Teams = ({ teams, onTriCodeSelect, loading }) => {
+  const [color, setColor] = useState("");
 
   //* Filtering the teams out that are not currently in NHL using array above
   const filteredTeams = teams.filter(
     (team) => !excludedTeams.includes(team.fullName)
   );
 
-  // console.log(filteredTeams);
-
-  const handleTriCodeClick = (triCode) => {
-    onTriCodeSelect(triCode);
-  };
-  // className="flex justify-center items-center m-8"
   return (
     <>
       {loading ? (

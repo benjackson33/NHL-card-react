@@ -1,11 +1,43 @@
 import { excludedTeams } from "../../utils/excluded-teams";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const SignUp = ({ teams }) => {
   const filteredTeams = teams.filter(
     (team) => !excludedTeams.includes(team.fullName)
   );
 
-  //   console.log(filteredTeams);
+  console.log(filteredTeams);
+
+  let navigate = useNavigate();
+
+  const handleFormSubmit = async (e) => {
+    e.preventDefault();
+
+    // Get form data
+    const formData = {
+      firstName: e.target["first-name"].value,
+      lastName: e.target["last-name"].value,
+      email: e.target.email.value,
+      password: e.target.password.value,
+      favoriteTeam: e.target["favorite-team"].value,
+    };
+
+    try {
+      // Make a POST request to your backend API
+      const response = await axios.post(
+        "http://localhost:3001/signup",
+        formData
+      );
+
+      // Handle the response from the server
+      console.log(response.data); // Log or handle the response accordingly
+      navigate("/login");
+    } catch (error) {
+      // Handle errors
+      console.error("Error submitting form:", error);
+    }
+  };
 
   return (
     <div className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8 font-graduate">
@@ -19,7 +51,12 @@ const SignUp = ({ teams }) => {
 
       <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm ">
         <h1>Create your account </h1>
-        <form className="space-y-6" action="#" method="POST">
+        <form
+          className="space-y-6"
+          action="#"
+          method="POST"
+          onSubmit={handleFormSubmit}
+        >
           <div>
             <label className="block text-sm font-medium leading-6 text-balance ">
               First Name
