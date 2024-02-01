@@ -1,6 +1,38 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
+import { useState } from "react";
 
 const Login = () => {
+  const [loggedin, setLoggedin] = useState(false);
+
+  let navigate = useNavigate();
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+
+    const formData = {
+      email: e.target.email.value,
+      password: e.target.password.value,
+    };
+
+    try {
+      const response = await axios.post(
+        "http://localhost:3001/login",
+        formData
+      );
+
+      if (response.data.success) {
+        console.log("Login successful");
+        setLoggedin(true);
+        navigate("/");
+      } else {
+        console.error("Login failed:", response.data.error);
+        // Handle failed login, show error message, etc.
+      }
+    } catch (error) {
+      console.error("Error during login:", error);
+    }
+  };
   return (
     <div className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8 font-graduate">
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
@@ -12,7 +44,12 @@ const Login = () => {
       </div>
 
       <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-        <form className="space-y-6" action="#" method="POST">
+        <form
+          className="space-y-6"
+          action="#"
+          method="POST"
+          onSubmit={handleLogin}
+        >
           <div>
             <label
               htmlFor="email"

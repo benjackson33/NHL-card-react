@@ -26,29 +26,28 @@ const Roster = () => {
     fetchTeams();
   }, [triCode]);
 
-  const renderPlayerCategory = (category, title) =>
-    loading ? (
-      <div className="flex justify-center items-center mt-11">
-        <LoadingSpinner />
+  const renderPlayerCategory = (category, title) => (
+    <div className="flex justify-center items-center m-8">
+      <div>
+        {players && players[category] && (
+          <>
+            <h1 className="font-extrabold text-xl m-5">{title}</h1>
+            <div className="grid grid-cols-3 gap-4">
+              {players[category].map((player) => (
+                <PlayerCard key={player.id} player={player} metric={metric} />
+              ))}
+            </div>
+          </>
+        )}
       </div>
-    ) : (
-      <div className="flex justify-center items-center m-8">
-        <div>
-          {players && players[category] && (
-            <>
-              <h1 className="font-extrabold text-xl m-5">{title}</h1>
-              <div className="grid grid-cols-3 gap-4">
-                {players[category].map((player) => (
-                  <PlayerCard key={player.id} player={player} metric={metric} />
-                ))}
-              </div>
-            </>
-          )}
-        </div>
-      </div>
-    );
+    </div>
+  );
 
-  return (
+  return loading ? (
+    <div className="flex justify-center items-center mt-32">
+      <LoadingSpinner />
+    </div>
+  ) : (
     <div>
       <div>
         <button
@@ -57,6 +56,13 @@ const Roster = () => {
         >
           Unit Convert
         </button>
+      </div>
+      <div className="flex justify-center items-center mt-2">
+        <img
+          className="w-36 mb-4"
+          src={`https://assets.nhle.com/logos/nhl/svg/${triCode}_light.svg`}
+          alt={`Logo of ${triCode}`}
+        />
       </div>
       {renderPlayerCategory("forwards", "Forwards")}
       {renderPlayerCategory("defensemen", "Defense")}

@@ -7,8 +7,6 @@ const SignUp = ({ teams }) => {
     (team) => !excludedTeams.includes(team.fullName)
   );
 
-  console.log(filteredTeams);
-
   let navigate = useNavigate();
 
   const handleFormSubmit = async (e) => {
@@ -25,13 +23,10 @@ const SignUp = ({ teams }) => {
 
     try {
       // Make a POST request to your backend API
-      const response = await axios.post(
-        "http://localhost:3001/signup",
-        formData
-      );
+      const res = await axios.post("http://localhost:3001/signup", formData);
 
-      // Handle the response from the server
-      console.log(response.data); // Log or handle the response accordingly
+      // Handle the res from the server
+      console.log(res.data); // Log or handle the response accordingly
       navigate("/login");
     } catch (error) {
       // Handle errors

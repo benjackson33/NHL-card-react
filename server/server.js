@@ -45,7 +45,46 @@ app.get("/:triCode/roster", async (req, res) => {
   }
 });
 
-//TODO - redirect to login form if succesful
+//* Sign in and out
+
+app.post("/login", async (req, res) => {
+  const { email, password } = req.body;
+
+  try {
+    // Fetch user from the database based on email
+    const result = await db.query("SELECT * FROM users WHERE email = $1", [
+      email,
+    ]);
+
+    if (result.rows.length === 0) {
+      return res
+        .status(401)
+        .json({ success: false, error: "Invalid credentials" });
+    }
+
+    const user = result.rows[0];
+
+    // Compare hashed password with user input
+    const passwordMatch = await bcrypt.compare(password, user.password_hash);
+
+    if (passwordMatch) {
+      // Passwords match, login successful
+      return res
+        .status(200)
+        .json({ success: true, message: "Login successful" });
+    } else {
+      // Passwords do not match, login failed
+      return res
+        .status(401)
+        .json({ success: false, error: "Invalid credentials" });
+    }
+  } catch (error) {
+    console.error("Error during login:", error);
+    return res
+      .status(500)
+      .json({ success: false, error: "Internal server error" });
+  }
+});
 
 app.post("/signup", async (req, res) => {
   try {

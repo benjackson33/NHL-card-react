@@ -2,11 +2,7 @@ import LoadingSpinner from "../components/LoadingSpinner";
 
 import { excludedTeams } from "../../utils/excluded-teams";
 
-import { useState, useEffect } from "react";
-
 const Teams = ({ teams, onTriCodeSelect, loading }) => {
-  const [color, setColor] = useState("");
-
   //* Filtering the teams out that are not currently in NHL using array above
   const filteredTeams = teams.filter(
     (team) => !excludedTeams.includes(team.fullName)

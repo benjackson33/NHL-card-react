@@ -45,7 +45,7 @@ const PlayerCard = ({ player, metric }) => {
             </p>
             <p>
               Birth place:{" "}
-              {player.birthCity.default + " " + player.birthCountry}
+              {`${player.birthCity.default} ${player.birthCountry}`}
             </p>
           </div>
         </div>
