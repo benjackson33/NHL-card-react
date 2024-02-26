@@ -2,7 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useState } from "react";
 
-const Login = () => {
+const Login = ({ onLogin }) => {
   const [loggedin, setLoggedin] = useState(false);
 
   let navigate = useNavigate();
@@ -20,16 +20,17 @@ const Login = () => {
         "http://localhost:3001/login",
         formData
       );
-
       if (response.data.success) {
         console.log("Login successful");
         setLoggedin(true);
+        onLogin();
         navigate("/");
       } else {
         console.error("Login failed:", response.data.error);
         // Handle failed login, show error message, etc.
       }
     } catch (error) {
+      alert("Please enter valid log in details ");
       console.error("Error during login:", error);
     }
   };

@@ -18,6 +18,7 @@ function App() {
   const [selectedTriCode, setSelectedTriCode] = useState(null);
   const [teams, setTeams] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [loggedin, setLoggedin] = useState(false);
   const handleTriCodeSelection = (triCode) => {
     setSelectedTriCode(triCode);
   };
@@ -39,11 +40,19 @@ function App() {
     fetchTeams();
   }, [setTeams]);
 
+  const handleLogin = () => {
+    setLoggedin(true);
+  };
+
+  const handleLogout = () => {
+    setLoggedin(false);
+  };
+
   // console.log(teams);
   return (
     <Router>
       <>
-        <NavBar />
+        <NavBar loggedin={loggedin} onLogout={handleLogout} />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route
@@ -56,7 +65,7 @@ function App() {
               />
             }
           />
-          <Route path="/login" element={<Login />} />
+          <Route path="/login" element={<Login onLogin={handleLogin} />} />
           <Route path="/signup" element={<SignUp teams={teams} />} />
 
           <Route

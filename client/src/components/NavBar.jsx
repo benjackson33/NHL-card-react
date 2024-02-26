@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const Navbar = () => {
+const Navbar = ({ loggedin, onLogout }) => {
   return (
     <nav className="bg-gray-800 p-4 flex items-center justify-between font-graduate text-white">
       <div className="text-white text-xl font-bold">NHL Cards</div>
@@ -17,12 +17,20 @@ const Navbar = () => {
       </div>
       <div className="space-x-4">
         <ul className="flex  flex-row gap-4">
-          <li className="hover:underline hover:font-extrabold">
-            <Link to="/login">Login</Link>
-          </li>
-          <li className="hover:underline hover:font-extrabold">
-            <Link to="/logout">Log Out</Link>
-          </li>
+          {!loggedin ? (
+            <>
+              <li className="hover:underline hover:font-extrabold gap-4">
+                <Link to="/login">Login</Link>
+              </li>
+              <li>
+                <Link to="/signup">Sign Up</Link>
+              </li>
+            </>
+          ) : (
+            <li className="hover:underline hover:font-extrabold">
+              <Link to="/">Log Out</Link>
+            </li>
+          )}
         </ul>
       </div>
     </nav>
