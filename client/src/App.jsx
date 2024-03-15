@@ -12,6 +12,8 @@ import Roster from "./pages/Roster";
 import NavBar from "./components/NavBar";
 import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
+import User from "./pages/User";
+import Settings from "./pages/Settings";
 
 function App() {
   //*STATE
@@ -67,6 +69,8 @@ function App() {
           />
           <Route path="/login" element={<Login onLogin={handleLogin} />} />
           <Route path="/signup" element={<SignUp teams={teams} />} />
+          <Route path="/user" element={<User />} />
+          <Route path="/settings" element={<Settings />} />
 
           <Route
             path="/:triCode/roster"
