@@ -40,10 +40,10 @@ const Navbar = ({ loggedin, onLogout }) => {
               </li> */}
               <Menu as="div" className="relative inline-block text-left">
                 <div>
-                  <Menu.Button className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
+                  <Menu.Button className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-gray-800  px-3 py-2 text-sm font-semibold text-white shadow-sm ring-1 ring-inset ring-transparent hover:bg-gray-800 hover:underline hover:font-extrabold">
                     User
                     <ChevronDownIcon
-                      className="-mr-1 h-5 w-5 text-gray-400"
+                      className="-mr-1 h-5 w-5 text-white"
                       aria-hidden="true"
                     />
                   </Menu.Button>
@@ -86,7 +86,7 @@ const Navbar = ({ loggedin, onLogout }) => {
                               "block px-4 py-2 text-sm"
                             )}
                           >
-                            Support
+                            Settings
                           </a>
                         )}
                       </Menu.Item>
